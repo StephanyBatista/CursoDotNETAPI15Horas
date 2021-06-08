@@ -49,5 +49,41 @@ namespace TicketComplaint.Controllers
                 .First(c => c.Id == id);
             return Ok(ticket);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            // var ticket = applicationDbContext.Tickets.Include(t => t.Complaints).FirstOrDefault(t => t.Id == id);
+            // if(ticket == null)
+            //     throw new InvalidOperationException("Id invalid");
+
+            // applicationDbContext.Complaints.RemoveRange(ticket.Complaints);
+            // applicationDbContext.Tickets.Remove(ticket);
+            // applicationDbContext.SaveChanges();
+
+            // return Ok();
+
+            var ticket = applicationDbContext.Tickets.FirstOrDefault(t => t.Id == id);
+            if(ticket == null)
+                throw new InvalidOperationException("Id invalid");
+
+            applicationDbContext.Tickets.Remove(ticket);
+            applicationDbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut("{id}/resolve")]
+        public IActionResult ResolveTicket(int id)
+        {
+            var ticket = applicationDbContext.Tickets.FirstOrDefault(t => t.Id == id);
+            if(ticket == null)
+                throw new InvalidOperationException("Id invalid");
+
+            ticket.Resolved = true;
+            applicationDbContext.SaveChanges();
+
+            return Ok();
+        }
     }
 }

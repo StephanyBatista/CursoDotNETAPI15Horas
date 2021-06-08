@@ -9,5 +9,6 @@ namespace TicketComplaint.Domain
         public Client Client { get; set; }
         public DateTime CreateOn { get; set; }
         public List<Complaint> Complaints { get; set; } = new List<Complaint>();
+        public bool Resolved { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketComplaint.Infra.Db;
 
 namespace TicketComplaint.Infra.Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210607223625_DeleteCascadeComplaints")]
+    partial class DeleteCascadeComplaints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +75,6 @@ namespace TicketComplaint.Infra.Db.Migrations
 
                     b.Property<DateTime>("CreateOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Resolved")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

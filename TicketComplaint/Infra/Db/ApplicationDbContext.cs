@@ -22,6 +22,11 @@ namespace TicketComplaint.Infra.Db
                 .Property(c => c.Name).HasMaxLength(120).IsRequired();
             modelBuilder.Entity<Client>()
                 .Property(c => c.Email).HasMaxLength(80).IsRequired();
+
+            modelBuilder.Entity<Ticket>()
+                .HasMany(t => t.Complaints)
+                .WithOne(c => c.Ticket)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
