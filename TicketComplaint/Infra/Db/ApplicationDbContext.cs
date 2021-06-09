@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TicketComplaint.Domain;
 
 namespace TicketComplaint.Infra.Db
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
@@ -17,6 +19,8 @@ namespace TicketComplaint.Infra.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            
             //FluentAPI
             modelBuilder.Entity<Client>()
                 .Property(c => c.Name).HasMaxLength(120).IsRequired();

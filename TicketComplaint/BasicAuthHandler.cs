@@ -43,6 +43,7 @@ namespace TicketComplaint
                 var claims = new[] {
                     new Claim(ClaimTypes.NameIdentifier, "1"),
                     new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, "Support")
                 };
                 var identity = new ClaimsIdentity(claims, Scheme.Name);
                 var principal = new ClaimsPrincipal(identity);

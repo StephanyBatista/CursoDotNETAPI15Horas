@@ -11,7 +11,7 @@ using TicketComplaint.Infra.Db;
 
 namespace TicketComplaint.Controllers
 {
-    
+    [Authorize]
     [ApiController]
     [Route("v1/client")]
     public class ClientController : ControllerBase
@@ -24,15 +24,15 @@ namespace TicketComplaint.Controllers
         }
         
         [HttpPost]
-        public IActionResult Post([FromBody] ClientDto dto)
+        public async Task<IActionResult> Post([FromBody] ClientDto dto)
         {
-            Client client = new() { Name = dto.Name, Email = dto.Email};
-            applicationDbContext.Clients.Add(client);
-            applicationDbContext.SaveChanges();
+            Client client = new() { Name = dto.Name, Email = dto.Email, UserId = User.Identity.Name};
+            await applicationDbContext.Clients.AddAsync(client);
+            await applicationDbContext.SaveChangesAsync();
             return Created("v1/client/" + client.Id, client.Id);
         }
 
-        [Authorize]
+        
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
